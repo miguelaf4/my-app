@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "cfbc260d-b7f3-4155-820a-e4d9ad0f4086",
+		"name": "API Practica Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Comprobar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4522dfc-e7fb-4358-955d-88faac15b3e6",
+						"exec": [
+							"pm.test(\"Se creo pelicula\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "MyUniqueApiKey",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/?x-api-key=MyUniqueApiKey",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "x-api-key",
+							"value": "MyUniqueApiKey"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registro",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a4d8f06d-a299-448a-9aac-6075d9bbe2cb",
+						"exec": [
+							"let date = Date.now();\r",
+							"let email = \"leonel\" + date + \"@gmail.com\";\r",
+							"let pass = \"123456\";\r",
+							"pm.environment.set(\"userEmail\",email);\r",
+							"pm.environment.set(\"userPass\",pass);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d1ad7ec-06bf-4948-8310-81c308dbd4d2",
+						"exec": [
+							"pm.test(\"tiene un token\",function(){\r",
+							"    const {data} = pm.response.json();\r",
+							"pm.environment.set(\"id\",data._id);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"{{userEmail}}\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "201dba1e-babc-420b-a51a-84c42a668f58",
+						"exec": [
+							"pm.test(\"tiene un token\",function(){\r",
+							"    const {data} = pm.response.json();\r",
+							"pm.environment.set(\"token\",data.token);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"{{userEmail}}\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/tokens/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"tokens",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear pelicula",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63d29488-afec-4c74-9529-c62c063e0bbc",
+						"exec": [
+							"pm.test(\"Se creo pelicula\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Da vinci\",\r\n    \"year\":2005,\r\n    \"owner\":\"{{id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener peliculas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa86efb6-d6f6-45e6-a998-8ec89e66adf9",
+						"exec": [
+							"pm.test(\"Existe pelicula\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const {data} = pm.response.json();\r",
+							"    pm.expect(data.length).to.eql(1);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

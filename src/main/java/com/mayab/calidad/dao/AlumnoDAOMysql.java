@@ -20,6 +20,7 @@ public class AlumnoDAOMysql implements DAO {
 	            lgr.log(Level.SEVERE, ex.getMessage(), ex);
 	        } 
 	        return con;
+		
 	}
 	
 	
@@ -42,11 +43,11 @@ public class AlumnoDAOMysql implements DAO {
 		}
 	}
 
-	public boolean deleteAlumno(Alumno a) {
+	public boolean deleteAlumno(int id) {
 		Connection con = getConection();
 		try {
 			PreparedStatement ps = con.prepareStatement("delete from alumno WHERE idAlumno=?");
-			ps.setInt(1, a.getId());
+			ps.setInt(1, id);
 			ps.execute();
 			con.close();
 			return true;
@@ -56,12 +57,12 @@ public class AlumnoDAOMysql implements DAO {
 		}
 	}
 
-	public boolean updatePromedioAlumno(Alumno a, int nuevoPromedio) {
+	public boolean updatePromedioAlumno(int id , int nuevoPromedio) {
 		Connection con = getConection();
 		try {
 			PreparedStatement ps = con.prepareStatement("update alumno SET calificacion=? WHERE idAlumno=?");
 			ps.setInt(1, nuevoPromedio);
-			ps.setInt(2, a.getId());
+			ps.setInt(2, id);
 			ps.execute();
 			con.close();
 			return true;
@@ -102,5 +103,6 @@ public class AlumnoDAOMysql implements DAO {
 			return a;
 		}
 	}
+
 
 }

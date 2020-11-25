@@ -26,9 +26,6 @@ public class testDeoendency {
 	public void test() {
 		when(dependency.getClassName()).thenReturn("MiNombre");
 		assertThat(dependency.getClassName(), is("MiNombre"));
-		assertNull(dependency.getClassName());
-		assertNull(dependency.getClassNameUpperCase());
-		assertNull(dependency.getSubdependencyClassName());
 	}
 	
 	@Test

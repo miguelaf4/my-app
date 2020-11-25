@@ -8,27 +8,30 @@ public class DAOFake implements DAO {
 	public DAOFake() {
 		alumnos = new HashMap<Integer, Alumno>();
 	}
+	
 	public boolean addAlumno(Alumno a) {
-		int numeroInicial = getAlumnos();
+		int numeroInicial = getNumAlumnos();
 		alumnos.put(a.getId(),a); 
-		if(getAlumnos() > numeroInicial) return true;
+		if(getNumAlumnos() > numeroInicial) return true;
 		else return false;
 	}
 
-	public void deleteAlumno(Alumno a) {
-		alumnos.remove(a.getId());
+	public boolean deleteAlumno(int id) {
+		alumnos.remove(id);
+		return true;
 	}
 
-	public void updatePromedioAlumno(Alumno a, int nuevoPromedio) {
-		alumnos.get(a.getId()).setCalificacion(nuevoPromedio);
-	}
-
-	public int getAlumnos() {
-		return alumnos.size();
+	public boolean updatePromedioAlumno(int id, int nuevoPromedio) {
+		alumnos.get(id).setCalificacion(nuevoPromedio);
+		return true;
 	}
 
 	public Alumno getAlumno(int id) {
 		return alumnos.get(id);
+	}
+	
+	public int getNumAlumnos() {
+		return alumnos.size();
 	}
 	
 

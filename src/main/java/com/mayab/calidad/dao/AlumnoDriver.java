@@ -9,9 +9,9 @@ public class AlumnoDriver {
 		System.out.println(alumnoDB.addAlumno(a));
 		System.out.println(alumnoDB.addAlumno(b));
 		System.out.println(alumnoDB.getNumAlumnos());
-		System.out.println(alumnoDB.deleteAlumno(a));
+		System.out.println(alumnoDB.deleteAlumno(a.getId()));
 		System.out.println(alumnoDB.getNumAlumnos());
-		System.out.println(alumnoDB.updatePromedioAlumno(b, 8));
+		System.out.println(alumnoDB.updatePromedioAlumno(b.getId(), 8));
 		System.out.println(alumnoDB.getAlumno(5).getCalificacion());
 	}
 }
