@@ -18,6 +18,8 @@ before_script:
 - export CHROME_BIN=chromium-browser
 script:
 - mvn install
+- whereis google-chrome-stable
+- whereis chromedriver
 before_install:
   - sudo apt-get update -q
   - sudo apt-get install gcc-4.8 -y
