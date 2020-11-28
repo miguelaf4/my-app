@@ -51,7 +51,7 @@ public class TestDAOUnit {
 		});
 		when(fake.getAlumno(anyInt())).thenAnswer(new Answer<Alumno> () {
 			public Alumno answer(InvocationOnMock invocation) throws Throwable{
-				int arg = (int) invocation.getArguments()[0];
+				int arg = (Integer) invocation.getArguments()[0];
 				return dbFake.get(arg);
 			}
 		});
@@ -78,8 +78,8 @@ public class TestDAOUnit {
 		});
 		when(fake.updatePromedioAlumno(anyInt(), anyInt())).thenAnswer(new Answer<Boolean> () {
 			public Boolean answer(InvocationOnMock invocation) throws Throwable{
-				int id = (int) invocation.getArguments()[0];
-				int nuevoPromedio = (int) invocation.getArguments()[1];
+				int id = (Integer) invocation.getArguments()[0];
+				int nuevoPromedio = (Integer) invocation.getArguments()[1];
 				try {
 				dbFake.get(id).setCalificacion(nuevoPromedio);
 				return true;
@@ -91,7 +91,7 @@ public class TestDAOUnit {
 		});
 		when(fake.getAlumno(anyInt())).thenAnswer(new Answer<Alumno> () {
 			public Alumno answer(InvocationOnMock invocation) throws Throwable{
-				int arg = (int) invocation.getArguments()[0];
+				int arg = (Integer) invocation.getArguments()[0];
 				return dbFake.get(arg);
 			}
 		});
@@ -114,7 +114,7 @@ public class TestDAOUnit {
 		});
 		when(fake.deleteAlumno(anyInt())).thenAnswer(new Answer<Boolean> () {
 			public Boolean answer(InvocationOnMock invocation) throws Throwable{
-				int id = (int) invocation.getArguments()[0];
+				int id = (Integer) invocation.getArguments()[0];
 				int numeroActual = dbFake.size();
 				dbFake.remove(id);
 				if(dbFake.size()<numeroActual)return true;
