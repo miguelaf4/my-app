@@ -8,7 +8,7 @@ services: mysql
 install: true
 before_script:
 - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
-- unzip chromedriver_linux64.zip
+- unzip chromedriver_linux64.zip -d /home/travis/virtualenv/
 - export CHROME_BIN=chromium-browser
 script:
 - mvn install
