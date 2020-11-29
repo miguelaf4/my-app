@@ -60,22 +60,20 @@ public class TestDAOIntegration extends DBTestCase{
 	public void testCreate() {
 		Alumno a = new Alumno(6,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
-		dao.addAlumno(a);
-		ITable expectedTable = null;
-		ITable actualTable = null;		
+		dao.addAlumno(a);		
 		try{
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			actualTable = databaseDataSet.getTable("alumno");
+			ITable actualTable = databaseDataSet.getTable("alumno");
 			//Leemos los datos del archivo esperado
 			//InputStream xmlFile = getClass().getResourceAsStream("src/resources/insert_result.xml");
 			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
-			expectedTable = expectedDataSet.getTable("alumno");
+			ITable expectedTable = expectedDataSet.getTable("alumno");
 			// Assert actual database table match expected table
+			Assertion.assertEquals(expectedTable, actualTable);
 			dao.deleteAlumno(a.getId());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		Assertion.assertEquals(expectedTable, actualTable);
 	}
 	
 	@Test
@@ -117,11 +115,11 @@ public class TestDAOIntegration extends DBTestCase{
 			expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
 			expectedTable = expectedDataSet.getTable("alumno");
 			expectedGrade = Integer.parseInt(expectedTable.getValue(1, "calificacion").toString());
+			assertEquals(alumnoActual.getCalificacion(),expectedGrade);
+			dao.deleteAlumno(alumnoActual.getId());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		assertEquals(alumnoActual.getCalificacion(),expectedGrade);
-		dao.deleteAlumno(alumnoActual.getId());
 	}
 	
 	//@Test
