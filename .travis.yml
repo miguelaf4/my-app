@@ -18,7 +18,6 @@ before_script:
 - export CHROME_BIN=chromium-browser
 - mysql -e 'DROP DATABASE IF EXISTS alumnos'
 - mysql -e 'CREATE DATABASE IF NOT EXISTS alumnos;'  
-- mysql -u root --default-character-set=utf8 alumnos < backend/alumnos-backend/alumnos.sql
 script:
 - mvn install
 - whereis google-chrome-stable
