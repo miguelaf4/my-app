@@ -87,18 +87,19 @@ public class TestDAOIntegration extends DBTestCase{
 			alumnoActual = dao.getAlumno(5);
 			expectedDataSet = getConnection().createDataSet();
 			expectedTable = expectedDataSet.getTable("alumno");
+
+			Alumno alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
+				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
+				,expectedTable.getValue(0, "email").toString());
+			assertEquals(alumnoActual.getId(),alumnoEsperado.getId());
+			assertEquals(alumnoActual.getCalificacion(),alumnoEsperado.getCalificacion());
+			assertEquals(alumnoActual.getEdad(),alumnoEsperado.getEdad());
+			assertEquals(alumnoActual.getEmail(),alumnoEsperado.getEmail());
+			assertEquals(alumnoActual.getNombre(),alumnoEsperado.getNombre());
+			dao.deleteAlumno(alumnoActual.getId());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		Alumno alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
-				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
-				,expectedTable.getValue(0, "email").toString());
-		assertEquals(alumnoActual.getId(),alumnoEsperado.getId());
-		assertEquals(alumnoActual.getCalificacion(),alumnoEsperado.getCalificacion());
-		assertEquals(alumnoActual.getEdad(),alumnoEsperado.getEdad());
-		assertEquals(alumnoActual.getEmail(),alumnoEsperado.getEmail());
-		assertEquals(alumnoActual.getNombre(),alumnoEsperado.getNombre());
-		dao.deleteAlumno(alumnoActual.getId());
 	}
 	
 	//@Test
