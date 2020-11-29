@@ -18,6 +18,7 @@ before_script:
 - export CHROME_BIN=chromium-browser
 - mysql -e 'DROP DATABASE IF EXISTS alumnos;'
 - mysql -e 'CREATE DATABASE IF NOT EXISTS alumnos;'  
+- mysql -e 'CREATE TABLE alumno(idAlumno INT(6), nombre VARCHAR(30), edad INT(6), calificacion FLOAT(6), email VARCHAR(30);'
 script:
 - mvn install
 - whereis google-chrome-stable
