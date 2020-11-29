@@ -118,7 +118,7 @@ public class TestDAOIntegration extends DBTestCase{
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		assertEquals(alumnoActual.getCalificacion(),expectedGrade);
+		Assertion.assertEquals(alumnoActual.getCalificacion(),expectedGrade);
 		dao.deleteAlumno(alumnoActual.getId());
 	}
 	
