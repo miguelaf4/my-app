@@ -26,13 +26,13 @@ public class TestFacebook {
 
   @Test
   public void testUntitledTestCase() throws Exception {
-    driver.get("https://www.facebook.com/");
+    /*driver.get("https://www.facebook.com/");
     driver.findElement(By.id("pass")).clear();
     driver.findElement(By.id("pass")).sendKeys("");
     driver.findElement(By.id("email")).clear();
     driver.findElement(By.id("email")).sendKeys("leonelsosav");
     driver.findElement(By.name("login")).click();
-    assertEquals(driver.findElement(By.className("_9ay7")).getText(), "La contraseña que has introducido es incorrecta. ¿Has olvidado la contraseña?");
+    assertEquals(driver.findElement(By.className("_9ay7")).getText(), "La contraseña que has introducido es incorrecta. ¿Has olvidado la contraseña?");*/
   }
 
   @After
