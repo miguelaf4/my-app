@@ -75,7 +75,7 @@ public class TestDAOIntegration extends DBTestCase{
 			System.out.println(e.getMessage());
 		}
 	}
-	
+/*	
 	@Test
 	public void testRetreive() throws NumberFormatException, DataSetException {
 		Alumno alumnoActual = new Alumno(5,"Ernestoo", 23, 10, "ernestooo@gmail.com");
@@ -121,7 +121,7 @@ public class TestDAOIntegration extends DBTestCase{
 		assertEquals(alumnoActual.getCalificacion(),expectedGrade);
 		dao.deleteAlumno(alumnoActual.getId());
 	}
-	
+	*/
 	//@Test
 	public void testDelete() {
 		Alumno alumno1 = new Alumno(5,"Ernesto", 23, 10, "ernestooo@gmail.com");
