@@ -17,6 +17,8 @@ before_script:
 - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/
 - export CHROME_BIN=chromium-browser
 - mysql -e 'CREATE DATABASE alumnos;'
+- mysql -e 'USE alumnos;'
+- mysql -e 'select database();'
 - mysql -e 'CREATE TABLE alumnos.alumno (idAlumno int(11) NOT NULL, nombre varchar(45) DEFAULT NULL, edad int(11) DEFAULT NULL, calificacion int(11) DEFAULT NULL, email varchar(45) DEFAULT NULL, PRIMARY KEY (idAlumno));'
 script:
 - mvn install
