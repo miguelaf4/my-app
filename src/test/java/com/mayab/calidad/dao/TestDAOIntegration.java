@@ -6,6 +6,7 @@ import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -47,6 +48,7 @@ public class TestDAOIntegration extends DBTestCase{
 			int actualRows = con.getRowCount("alumno");
 			dao.addAlumno(a);
 			assertEquals(actualRows+1, con.getRowCount("alumno"));
+			dao.deleteAlumno(a.getId());
 			con.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -68,46 +70,75 @@ public class TestDAOIntegration extends DBTestCase{
 			ITable expectedTable = expectedDataSet.getTable("alumno");
 			// Assert actual database table match expected table
 			Assertion.assertEquals(expectedTable, actualTable);
+			dao.deleteAlumno(a.getId());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
 	}
 	
 	@Test
-	public void testRetreive() {
-		Alumno alumnoActual = new Alumno(20,"Ernesto", 24, 9, "leonel@gmail.com");
+	public void testRetreive() throws NumberFormatException, DataSetException {
+		Alumno alumnoActual = new Alumno(5,"Ernestoo", 23, 10, "ernestooo@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
-		dao.addAlumno(alumnoActual);	
-		Alumno alumnoEsperado = dao.getAlumno(20);
+		dao.addAlumno(alumnoActual);
+		IDataSet expectedDataSet = null;
+		ITable expectedTable = null;
+		try {
+			alumnoActual = dao.getAlumno(5);
+			expectedDataSet = getConnection().createDataSet();
+			expectedTable = expectedDataSet.getTable("alumno");
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		Alumno alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
+				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
+				,expectedTable.getValue(0, "email").toString());
 		assertEquals(alumnoActual.getId(),alumnoEsperado.getId());
 		assertEquals(alumnoActual.getCalificacion(),alumnoEsperado.getCalificacion());
 		assertEquals(alumnoActual.getEdad(),alumnoEsperado.getEdad());
 		assertEquals(alumnoActual.getEmail(),alumnoEsperado.getEmail());
 		assertEquals(alumnoActual.getNombre(),alumnoEsperado.getNombre());
+		dao.deleteAlumno(alumnoActual.getId());
 	}
 	
-	@Test
+	//@Test
 	public void testUpdate() {
-		Alumno alumnoActual = new Alumno(30,"Ernesto Vera", 20, 5, "leonel@gmail.com");
+		Alumno alumnoActual = new Alumno(6,"Leonel", 24, 5, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		dao.addAlumno(alumnoActual);	
-		dao.updatePromedioAlumno(alumnoActual.getId(), 10);
-		alumnoActual = dao.getAlumno(alumnoActual.getId());
-		assertEquals(alumnoActual.getCalificacion(),10);
+		dao.updatePromedioAlumno(alumnoActual.getId(), 9);
+		IDataSet expectedDataSet = null;
+		ITable expectedTable = null;
+		int expectedGrade = 0;
+		try {
+			alumnoActual = dao.getAlumno(6);
+			expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
+			expectedTable = expectedDataSet.getTable("alumno");
+			expectedGrade = Integer.parseInt(expectedTable.getValue(1, "calificacion").toString());
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		assertEquals(alumnoActual.getCalificacion(),expectedGrade);
+		dao.deleteAlumno(alumnoActual.getId());
 	}
 	
-	@Test
+	//@Test
 	public void testDelete() {
-		Alumno alumno1 = new Alumno(31,"Leonel Vera", 21, 7, "LV@gmail.com");
-		Alumno alumno2 = new Alumno(32,"Ernesto Sosa", 22, 8, "ES@gmail.com");
+		Alumno alumno1 = new Alumno(5,"Ernesto", 23, 10, "ernestooo@gmail.com");
+		Alumno alumno2 = new Alumno(6,"Leonel", 22, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		dao.addAlumno(alumno1);	
 		dao.addAlumno(alumno2);	
-		int numeroAlumnos = dao.getNumAlumnos();
-		dao.deleteAlumno(32);
-		assertEquals(numeroAlumnos-1,dao.getNumAlumnos());
-		dao.deleteAlumno(31);
-		assertEquals(numeroAlumnos-2,dao.getNumAlumnos());
+		try{
+			dao.deleteAlumno(alumno2.getId());
+			IDataSet databaseDataSet = getConnection().createDataSet();
+			ITable actualTable = databaseDataSet.getTable("alumno");
+			IDataSet expectedDataSet = getConnection().createDataSet();
+			ITable expectedTable = expectedDataSet.getTable("alumno");
+			Assertion.assertEquals(expectedTable, actualTable);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	

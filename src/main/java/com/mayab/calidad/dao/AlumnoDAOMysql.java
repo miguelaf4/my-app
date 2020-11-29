@@ -28,7 +28,7 @@ public class AlumnoDAOMysql implements DAO {
 	public boolean addAlumno(Alumno a) {
 		Connection con = getConection();
 		try {
-			PreparedStatement ps = con.prepareStatement("insert into alumno(idAlumno,nombre,edad,calificacion,email) values (?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert ignore into alumno(idAlumno,nombre,edad,calificacion,email) values (?,?,?,?,?)");
 			ps.setInt(1, a.getId());
 			ps.setString(2, a.getNombre());
 			ps.setInt(3, a.getEdad());
