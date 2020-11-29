@@ -8,8 +8,8 @@ public class AlumnoDAOMysql implements DAO {
 	
 	public Connection getConection() {
 		 String url = "jdbc:mysql://localhost:3306/alumnos?useSSL=false";
-	        String user = "Leonel";
-	        String password = "Lambo100";
+	        String user = "root";
+	        String password = "";
 	        Connection con = null;
 
 	        try {
