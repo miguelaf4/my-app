@@ -16,8 +16,8 @@ before_script:
 - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/
 - export CHROME_BIN=chromium-browser
-- mysql -e 'DROP DATABASE IF EXISTS alumno'
-- mysql -e 'CREATE DATABASE IF NOT EXISTS alumno;'  
+- mysql -e 'DROP DATABASE IF EXISTS alumnos;'
+- mysql -e 'CREATE DATABASE IF NOT EXISTS alumnos;'  
 script:
 - mvn install
 - whereis google-chrome-stable
