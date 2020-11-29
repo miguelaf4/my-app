@@ -60,20 +60,23 @@ public class TestDAOIntegration extends DBTestCase{
 	public void testCreate() {
 		Alumno a = new Alumno(6,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
-		dao.addAlumno(a);		
+		dao.addAlumno(a);	
+		ITable expectedTable = null;	
+		ITable actualTable = null;
 		try{
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			ITable actualTable = databaseDataSet.getTable("alumno");
+			actualTable = databaseDataSet.getTable("alumno");
 			//Leemos los datos del archivo esperado
 			//InputStream xmlFile = getClass().getResourceAsStream("src/resources/insert_result.xml");
 			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
-			ITable expectedTable = expectedDataSet.getTable("alumno");
+			expectedTable = expectedDataSet.getTable("alumno");
 			// Assert actual database table match expected table
-			Assertion.assertEquals(expectedTable, actualTable);
+			
 			dao.deleteAlumno(a.getId());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+		Assertion.assertEquals(expectedTable, actualTable);
 	}
 	
 	@Test
@@ -118,7 +121,7 @@ public class TestDAOIntegration extends DBTestCase{
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		Assertion.assertEquals(alumnoActual.getCalificacion(),expectedGrade);
+		assertEquals(alumnoActual.getCalificacion(),expectedGrade);
 		dao.deleteAlumno(alumnoActual.getId());
 	}
 	
