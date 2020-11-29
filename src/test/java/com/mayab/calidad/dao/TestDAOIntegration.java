@@ -23,7 +23,7 @@ public class TestDAOIntegration extends DBTestCase{
 		super(name);
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "com.mysql.jdbc.Driver");        
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:mysql://localhost:3306/alumnos");        
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "travis");        
+		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "root");        
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, ""); 
 	}
 	
