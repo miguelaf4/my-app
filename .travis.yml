@@ -23,4 +23,4 @@ script:
 before_install:
   - sudo apt-get update -q
   - sudo apt-get install gcc-4.8 -y
-  - sudo mysql -e 'CREATE DATABASE alumnos; USE alumnos; CREATE TABLE alumnos.Alumno (idAlumno int(11) NOT NULL, nombre varchar(45) DEFAULT NULL, edad int(11) DEFAULT NULL, calificacion int(11) DEFAULT NULL, email varchar(45) DEFAULT NULL, PRIMARY KEY (idAlumno));'
+  - sudo mysql -e 'CREATE DATABASE alumnos; USE alumnos; CREATE TABLE alumnos.alumno (idAlumno int(11) NOT NULL, nombre varchar(45) DEFAULT NULL, edad int(11) DEFAULT NULL, calificacion int(11) DEFAULT NULL, email varchar(45) DEFAULT NULL, PRIMARY KEY (idAlumno));'
