@@ -42,6 +42,7 @@ public class TestDAOIntegration extends DBTestCase{
 	public void testInsertCount() {
 		Alumno a = new Alumno(9,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
+		IDatabaseConnection con = null;
 		int actualRows = 0;
 		try {
 			con = getConnection();
