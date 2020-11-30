@@ -88,17 +88,17 @@ public class TestDAOIntegration extends DBTestCase{
 			alumnoActual = dao.getAlumno(5);
 			IDataSet expectedDataSet = getConnection().createDataSet();
 			ITable expectedTable = expectedDataSet.getTable("alumno");
-			 alumnoEsperado= new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
+			alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
 				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
 				,expectedTable.getValue(0, "email").toString());
+			assertEquals(alumnoActual.getId(),alumnoEsperado.getId());//AlumnoEsperado
+			assertEquals(alumnoActual.getCalificacion(),alumnoEsperado.getCalificacion());
+			assertEquals(alumnoActual.getEdad(),alumnoEsperado.getEdad());
+			assertEquals(alumnoActual.getEmail(),alumnoEsperado.getEmail());
+			assertEquals(alumnoActual.getNombre(),alumnoEsperado.getNombre());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		assertEquals(alumnoActual.getId(),5);
-		assertEquals(alumnoActual.getCalificacion(),alumnoEsperado.getCalificacion());
-		assertEquals(alumnoActual.getEdad(),alumnoEsperado.getEdad());
-		assertEquals(alumnoActual.getEmail(),alumnoEsperado.getEmail());
-		assertEquals(alumnoActual.getNombre(),alumnoEsperado.getNombre());
 	}
 	
 	//@Test
