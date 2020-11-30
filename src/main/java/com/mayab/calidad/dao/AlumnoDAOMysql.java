@@ -28,7 +28,7 @@ public class AlumnoDAOMysql implements DAO {
 	public boolean addAlumno(Alumno a) {
 		Connection con = getConection();
 		try {
-			PreparedStatement ps = con.prepareStatement("insert ignore into alumno(idAlumno,nombre,edad,calificacion,email) values (?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert ignore into Alumno(idAlumno,nombre,edad,calificacion,email) values (?,?,?,?,?)");
 			ps.setInt(1, a.getId());
 			ps.setString(2, a.getNombre());
 			ps.setInt(3, a.getEdad());
@@ -46,7 +46,7 @@ public class AlumnoDAOMysql implements DAO {
 	public boolean deleteAlumno(int id) {
 		Connection con = getConection();
 		try {
-			PreparedStatement ps = con.prepareStatement("delete from alumno WHERE idAlumno=?");
+			PreparedStatement ps = con.prepareStatement("delete from Alumno WHERE idAlumno=?");
 			ps.setInt(1, id);
 			ps.execute();
 			con.close();
@@ -60,7 +60,7 @@ public class AlumnoDAOMysql implements DAO {
 	public boolean updatePromedioAlumno(int id , int nuevoPromedio) {
 		Connection con = getConection();
 		try {
-			PreparedStatement ps = con.prepareStatement("update alumno SET calificacion=? WHERE idAlumno=?");
+			PreparedStatement ps = con.prepareStatement("update Alumno SET calificacion=? WHERE idAlumno=?");
 			ps.setInt(1, nuevoPromedio);
 			ps.setInt(2, id);
 			ps.execute();
@@ -91,7 +91,7 @@ public class AlumnoDAOMysql implements DAO {
 		Connection con = getConection();
 		Alumno a = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from alumno WHERE idAlumno=?");
+			PreparedStatement ps = con.prepareStatement("select * from Alumno WHERE idAlumno=?");
 			ps.setInt(1, id);
 			ResultSet result = ps.executeQuery();
 			result.next();
