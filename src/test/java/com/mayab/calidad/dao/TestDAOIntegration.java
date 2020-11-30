@@ -43,17 +43,16 @@ public class TestDAOIntegration extends DBTestCase{
 		Alumno a = new Alumno(9,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		IDatabaseConnection con;
+		int actualRows = 0;
 		try {
 			con = getConnection();
-			int actualRows = con.getRowCount("Alumno");
+			actualRows = con.getRowCount("Alumno");
 			dao.addAlumno(a);
-			assertEquals(actualRows+1, con.getRowCount("Alumno"));
-			dao.deleteAlumno(a.getId());
-			con.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		assertEquals(actualRows+1, con.getRowCount("Alumno"));
 	}
 	
 	@Test
@@ -61,19 +60,19 @@ public class TestDAOIntegration extends DBTestCase{
 		Alumno a = new Alumno(6,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		dao.addAlumno(a);		
+		ITable expectedTable = null;
+		ITable actualTable = null;
 		try{
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			ITable actualTable = databaseDataSet.getTable("alumno");
+			actualTable = databaseDataSet.getTable("alumno");
 			//Leemos los datos del archivo esperado
 			//InputStream xmlFile = getClass().getResourceAsStream("src/resources/insert_result.xml");
 			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
-			ITable expectedTable = expectedDataSet.getTable("alumno");
-			// Assert actual database table match expected table
-			Assertion.assertEquals(expectedTable, actualTable);
-			dao.deleteAlumno(a.getId());
+			expectedTable = expectedDataSet.getTable("alumno");
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+		Assertion.assertEquals(expectedTable, actualTable);
 	}
 	
 	@Test
