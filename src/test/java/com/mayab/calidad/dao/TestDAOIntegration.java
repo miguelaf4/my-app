@@ -45,7 +45,7 @@ public class TestDAOIntegration extends DBTestCase{
 		IDatabaseConnection con;
 		try {
 			con = getConnection();
-			int actualRows = con.getRowCount("alumno");
+			int actualRows = con.getRowCount("Alumno");
 			dao.addAlumno(a);
 			assertEquals(actualRows+1, con.getRowCount("alumno"));
 			dao.deleteAlumno(a.getId());
