@@ -86,7 +86,7 @@ public class TestDAOIntegration extends DBTestCase{
 		Alumno alumnoActual = null;
 		try {
 			alumnoActual = dao.getAlumno(5);
-			IDataSet expectedDataSet = getConnection().createDataSet();
+			IDataSet expectedDataSet = getDataSet();
 			ITable expectedTable = expectedDataSet.getTable("Alumno");
 			alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
 				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
@@ -145,8 +145,6 @@ public class TestDAOIntegration extends DBTestCase{
 	
 	@Override
 	protected IDataSet getDataSet() throws Exception {
-		//InputStream xmlFile = getClass().getResourceAsStream("src/resources/alumno_init.xml");
-		//return new FlatXmlDataSetBuilder().build(xmlFile);
 		return new FlatXmlDataSetBuilder().build(new File("src/resources/alumno_init.xml"));
 	}
 }
