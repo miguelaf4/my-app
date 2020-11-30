@@ -7,7 +7,7 @@ import java.sql.*;
 public class AlumnoDAOMysql implements DAO {
 	
 	public Connection getConection() {
-		 String url = "jdbc:mysql://localhost:3306/alumnos?useSSL=false";
+		 String url = "jdbc:mysql://localhost:3306/alumnos?useSSL=true";
 	        String user = "root";
 	        String password = "";
 	        Connection con = null;
