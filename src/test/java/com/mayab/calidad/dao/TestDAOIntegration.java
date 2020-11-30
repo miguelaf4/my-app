@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
+import org.dbunit.DatabaseUnitException;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
@@ -16,6 +17,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.InputStream;
+import java.sql.SQLException;
 
 public class TestDAOIntegration extends DBTestCase{
 
@@ -56,7 +58,7 @@ public class TestDAOIntegration extends DBTestCase{
 	}
 	
 	@Test
-	public void testCreate() throws SQLException{
+	public void testCreate() throws SQLException, DatabaseUnitException{
 		Alumno a = new Alumno(6,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		dao.addAlumno(a);		
@@ -69,10 +71,10 @@ public class TestDAOIntegration extends DBTestCase{
 			//InputStream xmlFile = getClass().getResourceAsStream("src/resources/insert_result.xml");
 			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
 			expectedTable = expectedDataSet.getTable("alumno");
-			Assertion.assertEquals(expectedTable, actualTable);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+		Assertion.assertEquals(expectedTable, actualTable);
 	}
 	
 	@Test
