@@ -75,7 +75,7 @@ public class AlumnoDAOMysql implements DAO {
 	public int getNumAlumnos() {
 		Connection con = getConection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select count(*) from alumno");
+			PreparedStatement ps = con.prepareStatement("select count(*) from Alumno");
 			ResultSet result = ps.executeQuery();
 			result.next();
 			int r = result.getInt(1);

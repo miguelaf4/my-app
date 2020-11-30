@@ -66,11 +66,11 @@ public class TestDAOIntegration extends DBTestCase{
 		ITable actualTable = null;
 		try{
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			actualTable = databaseDataSet.getTable("alumno");
+			actualTable = databaseDataSet.getTable("Alumno");
 			//Leemos los datos del archivo esperado
 			//InputStream xmlFile = getClass().getResourceAsStream("src/resources/insert_result.xml");
 			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
-			expectedTable = expectedDataSet.getTable("alumno");
+			expectedTable = expectedDataSet.getTable("Alumno");
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -87,7 +87,7 @@ public class TestDAOIntegration extends DBTestCase{
 		try {
 			alumnoActual = dao.getAlumno(5);
 			IDataSet expectedDataSet = getConnection().createDataSet();
-			ITable expectedTable = expectedDataSet.getTable("alumno");
+			ITable expectedTable = expectedDataSet.getTable("Alumno");
 			alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
 				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
 				,expectedTable.getValue(0, "email").toString());
@@ -113,7 +113,7 @@ public class TestDAOIntegration extends DBTestCase{
 		try {
 			alumnoActual = dao.getAlumno(6);
 			expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
-			expectedTable = expectedDataSet.getTable("alumno");
+			expectedTable = expectedDataSet.getTable("Alumno");
 			expectedGrade = Integer.parseInt(expectedTable.getValue(1, "calificacion").toString());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -133,9 +133,9 @@ public class TestDAOIntegration extends DBTestCase{
 		try{
 			dao.deleteAlumno(alumno2.getId());
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			actualTable = databaseDataSet.getTable("alumno");
+			actualTable = databaseDataSet.getTable("Alumno");
 			IDataSet expectedDataSet = getConnection().createDataSet();
-			expectedTable = expectedDataSet.getTable("alumno");
+			expectedTable = expectedDataSet.getTable("Alumno");
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
