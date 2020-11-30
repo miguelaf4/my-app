@@ -94,7 +94,7 @@ public class TestDAOIntegration extends DBTestCase{
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		assertEquals(alumnoActual.getId(),alumnoEsperado.getId());
+		assertEquals(5,alumnoEsperado.getId());
 		assertEquals(alumnoActual.getCalificacion(),alumnoEsperado.getCalificacion());
 		assertEquals(alumnoActual.getEdad(),alumnoEsperado.getEdad());
 		assertEquals(alumnoActual.getEmail(),alumnoEsperado.getEmail());
