@@ -42,7 +42,6 @@ public class TestDAOIntegration extends DBTestCase{
 	public void testInsertCount() {
 		Alumno a = new Alumno(9,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
-		IDatabaseConnection con;
 		int actualRows = 0;
 		try {
 			con = getConnection();
@@ -69,10 +68,10 @@ public class TestDAOIntegration extends DBTestCase{
 			//InputStream xmlFile = getClass().getResourceAsStream("src/resources/insert_result.xml");
 			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
 			expectedTable = expectedDataSet.getTable("alumno");
+			Assertion.assertEquals(expectedTable, actualTable);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		Assertion.assertEquals(expectedTable, actualTable);
 	}
 	
 	@Test
