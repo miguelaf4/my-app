@@ -84,23 +84,23 @@ public class TestDAOIntegration extends DBTestCase{
 		dao.addAlumno(alumnoActual);
 		IDataSet expectedDataSet = null;
 		ITable expectedTable = null;
+		Alumno alumnoEsperado = null;
 		try {
 			alumnoActual = dao.getAlumno(5);
 			expectedDataSet = getConnection().createDataSet();
 			expectedTable = expectedDataSet.getTable("alumno");
 
-			Alumno alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
+			 alumnoEsperado= new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
 				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
 				,expectedTable.getValue(0, "email").toString());
-			assertEquals(alumnoActual.getId(),alumnoEsperado.getId());
-			assertEquals(alumnoActual.getCalificacion(),alumnoEsperado.getCalificacion());
-			assertEquals(alumnoActual.getEdad(),alumnoEsperado.getEdad());
-			assertEquals(alumnoActual.getEmail(),alumnoEsperado.getEmail());
-			assertEquals(alumnoActual.getNombre(),alumnoEsperado.getNombre());
-			dao.deleteAlumno(alumnoActual.getId());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+		assertEquals(alumnoActual.getId(),alumnoEsperado.getId());
+		assertEquals(alumnoActual.getCalificacion(),alumnoEsperado.getCalificacion());
+		assertEquals(alumnoActual.getEdad(),alumnoEsperado.getEdad());
+		assertEquals(alumnoActual.getEmail(),alumnoEsperado.getEmail());
+		assertEquals(alumnoActual.getNombre(),alumnoEsperado.getNombre());
 	}
 	
 	//@Test
@@ -117,30 +117,31 @@ public class TestDAOIntegration extends DBTestCase{
 			expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
 			expectedTable = expectedDataSet.getTable("alumno");
 			expectedGrade = Integer.parseInt(expectedTable.getValue(1, "calificacion").toString());
-			assertEquals(alumnoActual.getCalificacion(),expectedGrade);
-			dao.deleteAlumno(alumnoActual.getId());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+		assertEquals(alumnoActual.getCalificacion(),expectedGrade);
 	}
 	
 	//@Test
-	public void testDelete() {
+	public void testDelete() throws DatabaseUnitException {
 		Alumno alumno1 = new Alumno(5,"Ernesto", 23, 10, "ernestooo@gmail.com");
 		Alumno alumno2 = new Alumno(6,"Leonel", 22, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		dao.addAlumno(alumno1);	
 		dao.addAlumno(alumno2);	
+		ITable expectedTable = null;
+		ITable actualTable = null;
 		try{
 			dao.deleteAlumno(alumno2.getId());
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			ITable actualTable = databaseDataSet.getTable("alumno");
+			actualTable = databaseDataSet.getTable("alumno");
 			IDataSet expectedDataSet = getConnection().createDataSet();
-			ITable expectedTable = expectedDataSet.getTable("alumno");
-			Assertion.assertEquals(expectedTable, actualTable);
+			expectedTable = expectedDataSet.getTable("alumno");
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+		Assertion.assertEquals(expectedTable, actualTable);
 	}
 	
 	
