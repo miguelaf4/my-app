@@ -22,7 +22,7 @@ public class TestDAOIntegration extends DBTestCase{
 	public TestDAOIntegration(String name) {
 		super(name);
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "com.mysql.jdbc.Driver");        
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:mysql://localhost:3306/alumnos");        
+		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:mysql://localhost:3306/Alumnos");        
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "root");        
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, ""); 
 	}
@@ -43,9 +43,9 @@ public class TestDAOIntegration extends DBTestCase{
 		Alumno a = new Alumno(9,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		try {
-			int actualRows = con.getRowCount("Alumno");
+			int actualRows = con.getRowCount("alumno");
 			dao.addAlumno(a);
-			assertEquals(actualRows+1, con.getRowCount("Alumno"));
+			assertEquals(actualRows+1, con.getRowCount("alumno"));
 			dao.deleteAlumno(a.getId());
 			con.close();
 		} catch (Exception e) {
@@ -61,7 +61,7 @@ public class TestDAOIntegration extends DBTestCase{
 		dao.addAlumno(a);		
 		try{
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			ITable actualTable = databaseDataSet.getTable("Alumno");
+			ITable actualTable = databaseDataSet.getTable("alumno");
 			//Leemos los datos del archivo esperado
 			//InputStream xmlFile = getClass().getResourceAsStream("src/resources/insert_result.xml");
 			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
@@ -84,7 +84,7 @@ public class TestDAOIntegration extends DBTestCase{
 		try {
 			alumnoActual = dao.getAlumno(5);
 			expectedDataSet = getConnection().createDataSet();
-			expectedTable = expectedDataSet.getTable("Alumno");
+			expectedTable = expectedDataSet.getTable("alumno");
 
 			Alumno alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
 				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
@@ -131,9 +131,9 @@ public class TestDAOIntegration extends DBTestCase{
 		try{
 			dao.deleteAlumno(alumno2.getId());
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			ITable actualTable = databaseDataSet.getTable("Alumno");
+			ITable actualTable = databaseDataSet.getTable("alumno");
 			IDataSet expectedDataSet = getConnection().createDataSet();
-			ITable expectedTable = expectedDataSet.getTable("Alumno");
+			ITable expectedTable = expectedDataSet.getTable("alumno");
 			Assertion.assertEquals(expectedTable, actualTable);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
