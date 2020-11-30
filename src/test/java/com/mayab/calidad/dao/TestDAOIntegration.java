@@ -39,7 +39,7 @@ public class TestDAOIntegration extends DBTestCase{
 	}
 	
 	@Test
-	public void testInsertCount() {
+	public void testInsertCount() throws SQLException {
 		Alumno a = new Alumno(9,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		IDatabaseConnection con = null;
@@ -56,7 +56,7 @@ public class TestDAOIntegration extends DBTestCase{
 	}
 	
 	@Test
-	public void testCreate() {
+	public void testCreate() throws SQLException{
 		Alumno a = new Alumno(6,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
 		dao.addAlumno(a);		
