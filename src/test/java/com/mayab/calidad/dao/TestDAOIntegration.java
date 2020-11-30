@@ -132,7 +132,7 @@ public class TestDAOIntegration extends DBTestCase{
 		ITable actualTable = null;
 		try{
 			dao.deleteAlumno(alumno2.getId());
-			IDataSet databaseDataSet = getConnection().createDataSet();
+			IDataSet databaseDataSet = getDataSet();
 			actualTable = databaseDataSet.getTable("Alumno");
 			IDataSet expectedDataSet = getConnection().createDataSet();
 			expectedTable = expectedDataSet.getTable("Alumno");
