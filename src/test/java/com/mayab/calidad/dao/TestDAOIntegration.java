@@ -42,12 +42,10 @@ public class TestDAOIntegration extends DBTestCase{
 	public void testInsertCount() {
 		Alumno a = new Alumno(9,"Leonel", 24, 9, "leonel@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
-		IDatabaseConnection con;
 		try {
-			con = getConnection();
-			int actualRows = con.getRowCount("alumno");
+			int actualRows = con.getRowCount("Alumno");
 			dao.addAlumno(a);
-			assertEquals(actualRows+1, con.getRowCount("alumno"));
+			assertEquals(actualRows+1, con.getRowCount("Alumno"));
 			dao.deleteAlumno(a.getId());
 			con.close();
 		} catch (Exception e) {
@@ -63,7 +61,7 @@ public class TestDAOIntegration extends DBTestCase{
 		dao.addAlumno(a);		
 		try{
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			ITable actualTable = databaseDataSet.getTable("alumno");
+			ITable actualTable = databaseDataSet.getTable("Alumno");
 			//Leemos los datos del archivo esperado
 			//InputStream xmlFile = getClass().getResourceAsStream("src/resources/insert_result.xml");
 			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/insert_result.xml"));
@@ -86,7 +84,7 @@ public class TestDAOIntegration extends DBTestCase{
 		try {
 			alumnoActual = dao.getAlumno(5);
 			expectedDataSet = getConnection().createDataSet();
-			expectedTable = expectedDataSet.getTable("alumno");
+			expectedTable = expectedDataSet.getTable("Alumno");
 
 			Alumno alumnoEsperado = new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
 				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
@@ -133,9 +131,9 @@ public class TestDAOIntegration extends DBTestCase{
 		try{
 			dao.deleteAlumno(alumno2.getId());
 			IDataSet databaseDataSet = getConnection().createDataSet();
-			ITable actualTable = databaseDataSet.getTable("alumno");
+			ITable actualTable = databaseDataSet.getTable("Alumno");
 			IDataSet expectedDataSet = getConnection().createDataSet();
-			ITable expectedTable = expectedDataSet.getTable("alumno");
+			ITable expectedTable = expectedDataSet.getTable("Alumno");
 			Assertion.assertEquals(expectedTable, actualTable);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
