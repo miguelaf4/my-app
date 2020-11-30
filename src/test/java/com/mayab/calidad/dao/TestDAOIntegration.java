@@ -79,17 +79,15 @@ public class TestDAOIntegration extends DBTestCase{
 	
 	@Test
 	public void testRetreive() throws NumberFormatException, DataSetException {
-		Alumno alumnoActual = new Alumno(5,"Ernestoo", 23, 10, "ernestooo@gmail.com");
+		Alumno a = new Alumno(5,"Ernestoo", 23, 10, "ernestooo@gmail.com");
 		AlumnoDAOMysql dao = new AlumnoDAOMysql();
-		dao.addAlumno(alumnoActual);
-		IDataSet expectedDataSet = null;
-		ITable expectedTable = null;
+		dao.addAlumno(a);
 		Alumno alumnoEsperado = null;
+		Alumno alumnoActual = null;
 		try {
 			alumnoActual = dao.getAlumno(5);
-			expectedDataSet = getConnection().createDataSet();
-			expectedTable = expectedDataSet.getTable("alumno");
-
+			IDataSet expectedDataSet = getConnection().createDataSet();
+			ITable expectedTable = expectedDataSet.getTable("alumno");
 			 alumnoEsperado= new Alumno(Integer.parseInt(expectedTable.getValue(0,"idAlumno").toString()) ,expectedTable.getValue(0, "nombre").toString() 
 				,Integer.parseInt(expectedTable.getValue(0, "edad").toString()) ,Integer.parseInt(expectedTable.getValue(0, "calificacion").toString())
 				,expectedTable.getValue(0, "email").toString());
