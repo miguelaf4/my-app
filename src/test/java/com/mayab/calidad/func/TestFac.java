@@ -18,7 +18,7 @@ public class TestFac {
 
 	  @Before
 	  public void setUp() throws Exception {
-		  System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+		  System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
 	    driver = new ChromeDriver();
 	    baseUrl = "https://www.google.com/";
 	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
