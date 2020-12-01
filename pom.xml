@@ -90,6 +90,7 @@
   									<goals>
   										<goal>resources</goal>
   									</goals>
+  									<defaultGoal>install</defaultGoal>
   								</pluginExecutionFilter>
   								<action>
   									<ignore></ignore>
