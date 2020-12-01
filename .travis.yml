@@ -1,5 +1,5 @@
 sudo: required
-dist: trusty
+dist: xenial
 addons:
   chrome: stable
 language: java
@@ -22,7 +22,10 @@ before_script:
     - sudo cp chromedriver /usr/local/bin/.
     - sudo chmod +x /usr/local/bin/chromedriver
     - export DISPLAY=:99.0
-    - sleep 3
+    - "sh -e /etc/init.d/xvfb start"
+    - sleep 3 # give xvfb some time to start
+    - rackup  # start a Web server
+    - sleep 3 # give Web server some time to bind to sockets, etc
 script:
     - mvn install
     - whereis google-chrome-stable
